@@ -1,8 +1,7 @@
 import './index.scss';
-import { pokemon } from './components/pokemon';
-import { search } from './components/search';
-import { title } from './components/title';
+import { app } from './app';
 
-document.body.appendChild(title());
-document.body.appendChild(pokemon());
-document.body.appendChild(search());
+const elements = app();
+elements.forEach(element => {
+  document.body.appendChild(element);
+});
