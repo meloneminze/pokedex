@@ -9,7 +9,11 @@ export function createSearchResults(items) {
   items.forEach(item => {
     const element = createElement('div', {
       innerText: item,
-      className: 'pokemon'
+      className: 'pokemon' //eventListener
+    });
+    element.addEventListener('click', () => {
+      const favorites = [item];
+      localStorage.setItem('favorites', JSON.stringify(favorites));
     });
     appendContent(container, element);
   });
