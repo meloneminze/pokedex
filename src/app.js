@@ -1,10 +1,20 @@
 import './app.scss';
 import { createElement } from './lib/dom';
-import { search } from './components/search';
-import { title } from './components/title';
-import { pokemons } from './components/pokemons';
+import { createInputSearch } from './components/search';
+import { createTitle } from './components/title';
+import { createPokemons } from './components/pokemons';
+import { appendContent } from './lib/dom';
 
 const allPokemons = ['Pikachu', 'Pichu', 'Marwinchu', 'Juliachu', 'Johannachu'];
+
+function filterPokemons(searchValue) {
+  const lowerCaseSearchValue = searchValue.toLowerCase();
+
+  const filteredPokemons = allPokemons.filter(pokemon => {
+    return pokemon.toLowerCase().startsWith(lowerCaseSearchValue);
+  });
+  return filteredPokemons;
+}
 
 export function app() {
   const header = createElement('header', {
@@ -13,25 +23,27 @@ export function app() {
   const main = createElement('main', {
     className: 'main'
   });
-  const titleElement = title('Pokedex');
-  const searchElement = search();
+  const title = createTitle('Pokedex');
 
-  header.appendChild(titleElement);
-  main.appendChild(searchElement);
+  const searchInput = createInputSearch(sessionStorage.getItem('searchValue'));
 
-  let searchResults = pokemons(allPokemons);
-  main.appendChild(searchResults);
+  let pokemons = null;
+  function setSearchResults() {
+    const filteredPokemons = filterPokemons(searchInput.value);
+    pokemons = createPokemons(filteredPokemons);
+    appendContent(main, pokemons);
+  }
+  setSearchResults();
 
-  searchElement.addEventListener('input', event => {
-    main.removeChild(searchResults);
+  appendContent(header, [title]);
+  appendContent(main, [searchInput, pokemons]);
 
-    const searchValue = event.target.value.toLowerCase();
-    const filteredPokemons = allPokemons.filter(pokemon => {
-      return pokemon.toLowerCase().includes(searchValue);
-    });
+  searchInput.addEventListener('input', event => {
+    main.removeChild(pokemons);
+    setSearchResults();
 
-    searchResults = pokemons(filteredPokemons);
-    main.appendChild(searchResults);
+    const searchValue = event.target.value;
+    sessionStorage.setItem('searchValue', searchValue);
   });
 
   return [header, main];
