@@ -1,0 +1,19 @@
+@use "../theme";
+
+.favorites {
+  height: 100px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid theme.$primary-color;
+  display: flex;
+  justify-content: space-evenly;
+}
+.favorite {
+  width: 120px;
+  height: 80px;
+  font-size: 0.8rem;
+  background-color: rgb(234, 236, 116);
+  border: 1px solid theme.$primary-color;
+  padding: 4px;
+  text-align: center;
+}

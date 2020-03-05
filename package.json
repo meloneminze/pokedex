@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Pokedex example",
   "private": true,
-  "main": "index.js",
   "scripts": {
     "build": "webpack",
     "test": "eslint --ext .js src/",
