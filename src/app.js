@@ -5,6 +5,7 @@ import { createTitle } from './components/title';
 import { createSearchResults } from './components/pokemons';
 import { appendContent } from './lib/dom';
 import { filterPokemons } from './lib/pokemons';
+import { createFavorites } from './components/favorites';
 
 export function app() {
   const header = createElement('header', {
@@ -16,6 +17,10 @@ export function app() {
   const title = createTitle('Pokedex');
 
   const searchInput = createInputSearch(sessionStorage.getItem('searchValue'));
+
+  const favorites = createFavorites({
+    items: ['Pikachu', 'Pichu', 'Marwinchu']
+  });
 
   let searchResults = null;
   function setSearchResults() {
@@ -38,5 +43,5 @@ export function app() {
     sessionStorage.setItem('searchValue', searchValue);
   });
 
-  return [header, main];
+  return [header, main, favorites];
 }
