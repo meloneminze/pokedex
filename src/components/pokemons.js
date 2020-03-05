@@ -12,7 +12,7 @@ export function createSearchResults(props) {
       className: 'pokemon'
     });
     element.addEventListener('click', () => {
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
       // let favorites = JSON.parse(localStorage.getItem('favorites'));
       // if (!favorites) {
       //   favorites = [];

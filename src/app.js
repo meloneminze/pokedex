@@ -20,7 +20,9 @@ export function app() {
   let searchResults = null;
   function setSearchResults() {
     const filteredPokemons = filterPokemons(searchInput.value);
-    searchResults = createSearchResults(filteredPokemons);
+    searchResults = createSearchResults({
+      items: filteredPokemons
+    });
     appendContent(main, searchResults);
   }
   setSearchResults();
