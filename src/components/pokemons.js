@@ -9,11 +9,19 @@ export function createSearchResults(items) {
   items.forEach(item => {
     const element = createElement('div', {
       innerText: item,
-      className: 'pokemon' //eventListener
+      className: 'pokemon'
     });
     element.addEventListener('click', () => {
-      const favorites = [item];
-      localStorage.setItem('favorites', JSON.stringify(favorites));
+      const oldFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      if (!favorites.includes(item)) {
+        favorites.push(item);
+      } else {
+        const itemIndex = favorites.indexOf(item);
+        favorites.splice(itemIndex, 1);
+      }
+
+      const favoritesJSON = JSON.stringify(favorites);
+      localStorage.setItem('favorites', favoritesJSON);
     });
     appendContent(container, element);
   });
